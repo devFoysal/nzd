@@ -1,0 +1,45 @@
+// Reflection 3D Animation
+.reflection-container {
+    position: relative;
+    // display: inline-block;
+    vertical-align: middle;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+
+    .reflection-content {
+        // height: 596px;
+        // width: 351px;
+        // background: url(https://api.newzealanddairybd.com/uploads/2019/07/26cf5968-6556-4157-829a-9cbcc0f8b3bb.png);
+        background-size: cover;
+        background-position: center;
+        transform: rotateX(0) rotateY(0);
+        pointer-events: none;
+        transition: transform ease-out 0.5s;
+        overflow: hidden;
+    }
+
+    .reflection-grid-cell {
+        cursor: pointer;
+        position: absolute;
+        z-index: 1;
+        width: 10%;
+        height: 10%;
+    }
+
+    @for $r from 1 to 11 {
+        @for $c from 1 to 11 {
+            .reflection-grid-cell-#{( ($r*10) + $c - 10)} {
+                top: ($r*10%)-10%;
+                left: ($c*10%)-10%;
+            }
+
+            .reflection-grid-cell-#{( ($r*10) + $c - 10)}:hover~.reflection-content {
+                transform: rotateX((($r*-5)+25deg)) rotateY((-25deg+($c*5)));
+
+                &:before {
+                    transform: translateY(25-(5%*$r));
+                }
+            }
+        }
+    }
+}
